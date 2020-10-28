@@ -1,0 +1,8 @@
+# Le dossier contenant les undo des fichiers.
+undo/
+
+# Le dossier contenant les plug-in installés.
+plugged/
+
+# L'historique des dossiers modifiés.
+.netrwhist
