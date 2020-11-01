@@ -7,5 +7,3 @@ plugged/
 # L'historique des dossiers modifiés.
 .netrwhist
 
-# Le dossier contenant le script de vim-plug
-Plug/
