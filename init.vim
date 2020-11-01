@@ -157,7 +157,7 @@ nnoremap <C-,> :e $MYVIMRC<Cr>
 nnoremap <Leader>gq :diffget //3<Cr> 
 nnoremap <Leader>gm :diffget //2<Cr> 
 " Permet d'afficher le git status.
-nnoremap <Leader>gm :diffget //2<Cr> 
+nnoremap <Leader>gs :G<Cr>
 
 
 " ============================================================================ "
