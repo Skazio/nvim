@@ -153,11 +153,14 @@ imap <F3> <C-R>=strftime("%A %d %B %Y, %H:%M - (%Y-%m-%d)")<Cr>
 " Permet d'éditer le fichier de configuration de Nvim.
 nnoremap <C-,> :e $MYVIMRC<Cr>
 
-" Permet de selectionner la partie gauche de conflit de merge.
-nnoremap <Leader>gq :diffget //3<Cr> 
-nnoremap <Leader>gm :diffget //2<Cr> 
 " Permet d'afficher le git status.
 nnoremap <Leader>gs :G<Cr>
+" Permet de selectionner la partie de gauche lors de la résolution de conflit de
+" merge.
+nnoremap <Leader>gq :diffget //2<Cr> 
+" Permet de selectionner la partie de droite lors de la résolution de conflit de
+" merge.
+nnoremap <Leader>gm :diffget //3<Cr> 
 
 
 " ============================================================================ "
