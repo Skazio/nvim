@@ -1,4 +1,7 @@
 {
   "coc.preferences.formatOnSaveFileType": []
+  ,"diagnostic.errorSign": "❌"
+  ,"diagnostic.warningSign": "⚠️"
+  ,"diagnostic.infoSign": "❓"
 }
 
