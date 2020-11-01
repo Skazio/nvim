@@ -1,7 +1,10 @@
 " ================================= "nvim" =================================== "
 " ============================= "Configuration" ============================== "
 " ======================= "~/{config}/nvim/init.vim" ========================= "
-
+" TODO:
+"   -vim-fugitive
+"   -vim status bar (vim-airline)
+"   -emmet
 
 " ============================================================================ "
 " ================================ "Basique" ================================= "
@@ -60,6 +63,11 @@ set backupdir=.
 " ============================================================================ "
 " Permet d'afficher le mode dans lequel on se trouve (Insertion, Visual, etc.).
 set showmode
+
+" Active l'autocomplétion dans la ligne de commande.
+set wildmenu
+" Déclanche l'autocomplétion grâce à la touche "<Tab>".
+set wildchar=<Tab>
 
 
 " ============================================================================ "
@@ -142,6 +150,15 @@ nnoremap <Leader>b :call NerdTreeToggleCWD()<Cr>
 nmap <F3> i<C-R>=strftime("%A %d %B %Y, %H:%M - (%Y-%m-%d)")<Cr><Esc>
 imap <F3> <C-R>=strftime("%A %d %B %Y, %H:%M - (%Y-%m-%d)")<Cr>
 
+" Permet d'éditer le fichier de configuration de Nvim.
+nnoremap <C-,> :e $MYVIMRC<Cr>
+
+" Permet de selectionner la partie gauche de conflit de merge.
+nnoremap <Leader>gq :diffget //3<Cr> 
+nnoremap <Leader>gm :diffget //2<Cr> 
+" Permet d'afficher le git status.
+nnoremap <Leader>gm :diffget //2<Cr> 
+
 
 " ============================================================================ "
 " ================================ "Plugin" ================================== "
@@ -158,6 +175,12 @@ Plug 'preservim/nerdtree'
 " Associe à chaque élément du panneau latéral des icones.
 Plug 'ryanoasis/vim-devicons'
 
+" Permet de recherche des fichiers facilement en se basant sur leur nom.
+Plug 'ctrlpvim/ctrlp.vim'
+
+" Wrapper Git.
+Plug 'tpope/vim-fugitive'
+
 " Autocomplétion.
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
@@ -167,10 +190,23 @@ call plug#end()
 " ============================================================================ "
 " ================================ "Plugin" ================================== "
 " ============================== "Utilisation" =============================== "
+" "gruvbox"
 " Utilisation de gruvbox.
 colorscheme gruvbox
 set background=dark
+set cursorline
 
+
+" "NERDTree"
+" Change les icones de NERDTree pour les dossiers ouverts / fermés.
+let g:NERDTreeDirArrowExpandable="▸"
+let g:NERDTreeDirArrowCollapsible="▾"
+
+" Indique à NERDTree d'afficher les dossiers et fichiers cachés.
+let g:NERDTreeShowHidden=1
+
+" Indique à NERDTree de trier tous les fichiers cachéx au début.
+let g:NERDTreeSortHiddenFirst=1
 
 " Permet d'ouvrir NERDTree dans le CurrentWorkingDirectory (:pwd) s'il était
 " fermé, ou bien de le fermer s'il était ouvert.
@@ -183,13 +219,26 @@ function NerdTreeToggleCWD()
 endfunction
 
 
+" "CtrlP"
+" Lance la recherche dans le dossier de tavail actuel (:pwd).
+let g:ctrlp_working_path_mode='w'
+" Affiche les résultats en bas, de bas en haut, au minimum une ligne, au
+" maximum 5 lignes, au maximum 5 résultats.
+let g:ctrlp_match_window='bottom,order:btt,min:1,max:5,results:5'
+" Execute la recherche également sur les dossiers et fichiers cachés.
+let g:ctrlp_show_hidden=1
+" Ajoute un préfix à la ligne selectionnée dans les résultats.
+let g:ctrlp_line_prefix='> '
+
+
+" "CoC"
 " Installe le marketplace de Coc.
 " "CocList marketplace" pour afficher le marché d'extension.
 function CocInit()
   CocInstall coc-marketplace
 endfunction
 
-" Coc - Configuration de base.
+" Configuration de base.
 " TextEdit might fail if hidden is not set.
 " set hidden
 " Pour l'instant je me vois très peu utiliser cette option; donc on vera les
@@ -201,8 +250,9 @@ set nohidden
 " set nobackup
 " set nowritebackup
 
+" Par défaut, Coc recommande 2.
 " Give more space for displaying messages.
-set cmdheight=2
+set cmdheight=1
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
@@ -289,13 +339,15 @@ inoremap <nowait><expr> <C-f> coc#float#has_scroll() ?
 inoremap <nowait><expr> <C-b> coc#float#has_scroll() ?
       \ "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 
-" TODO: Compris jusqu'ici.
-
+" Les diagnostics sont en fait les messages: d'erreur, de warning, et
+" d'information affiché dans la marge lors de l'édition d'un fichier.
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location
 " list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" TODO: Compris jusqu'ici.
 
 augroup mygroup
   autocmd!
@@ -348,7 +400,7 @@ command! -nargs=0 OR
 set statusline=
 
 " Mappings for CoCList
-" Show all diagnostics.
+
 nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
 nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
