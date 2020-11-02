@@ -104,7 +104,6 @@ set shiftwidth=2
 set expandtab
 " Essaye de créer la bonne indentation (lors des retours à la ligne "<Enter>",
 " "<o>", "<O>", etc.).
-set noautoindent
 set smartindent
 
 
