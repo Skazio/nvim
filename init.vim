@@ -2,7 +2,6 @@
 " ============================= "Configuration" ============================== "
 " ======================= "~/{config}/nvim/init.vim" ========================= "
 " TODO:
-"   -vim-fugitive
 "   -vim status bar (vim-airline)
 "   -emmet
 
@@ -152,6 +151,12 @@ imap <F3> <C-R>=strftime("%A %d %B %Y, %H:%M - (%Y-%m-%d)")<Cr>
 " Permet d'éditer le fichier de configuration de Nvim.
 nnoremap <C-,> :e $MYVIMRC<Cr>
 
+" Permet de redimensionner les fenêtres plus facilement
+nnoremap <C-J> :resize -1<Cr>
+nnoremap <C-K> :resize +1<Cr>
+nnoremap <C-H> :vertical resize -1<Cr>
+nnoremap <C-L> :vertical resize +1<Cr>
+
 " Permet d'afficher le git status.
 nnoremap <Leader>gs :G<Cr>
 " Permet de selectionner la partie de gauche lors de la résolution de conflit de
@@ -171,6 +176,12 @@ call plug#begin('~/AppData/Local/nvim/plugged')
 " Theme Gruvbox.
 Plug 'morhetz/gruvbox'
 
+" Theme Deus.
+Plug 'ajmwagar/vim-deus'
+
+" Theme papercolor.
+Plug 'NLKNguyen/papercolor-theme'
+
 " Panneau latéral d'exploration de fichiers.
 Plug 'preservim/nerdtree'
 
@@ -183,6 +194,15 @@ Plug 'ctrlpvim/ctrlp.vim'
 " Wrapper Git.
 Plug 'tpope/vim-fugitive'
 
+" Bar de statut.
+Plug 'vim-airline/vim-airline'
+
+" Theme pour la bar de statut.
+Plug 'vim-airline/vim-airline-themes'
+
+" Permet de commenter facilement le code.
+Plug 'tpope/vim-commentary'
+
 " Autocomplétion.
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
@@ -192,9 +212,9 @@ call plug#end()
 " ============================================================================ "
 " ================================ "Plugin" ================================== "
 " ============================== "Utilisation" =============================== "
-" "gruvbox"
-" Utilisation de gruvbox.
-colorscheme gruvbox
+" "Deus"
+" Utilisation de deus.
+colorscheme deus
 set background=dark
 set cursorline
 
@@ -233,6 +253,14 @@ let g:ctrlp_show_hidden=1
 let g:ctrlp_line_prefix='> '
 
 
+" "Airline"
+" Change le theme air-line.
+let g:airline_theme='deus' 
+" Active les polices powerline, permet d'avoir de beau symboles dans la bar de
+" statut.
+let g:airline_powerline_fonts=1
+
+
 " "CoC"
 " Installe le marketplace de Coc.
 " "CocList marketplace" pour afficher le marché d'extension.
@@ -245,7 +273,7 @@ endfunction
 " set hidden
 " Pour l'instant je me vois très peu utiliser cette option; donc on vera les
 " problèmes qui en découlent.
-set nohidden
+set hidden
 
 " En cas de problème, merge ces options avec mes configurations: "Sauvegarde".
 " Some servers have issues with backup files, see #649.
@@ -351,71 +379,71 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " TODO: Compris jusqu'ici.
 
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+"augroup mygroup
+"  autocmd!
+"  " Setup formatexpr specified filetype(s).
+"  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+"  " Update signature help on jump placeholder.
+"  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+"augroup end
 
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+"" Applying codeAction to the selected region.
+"" Example: `<leader>aap` for current paragraph
+"xmap <leader>a  <Plug>(coc-codeaction-selected)
+"nmap <leader>a  <Plug>(coc-codeaction-selected)
 
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+"" Remap keys for applying codeAction to the current buffer.
+"nmap <leader>ac  <Plug>(coc-codeaction)
+"" Apply AutoFix to problem on the current line.
+"nmap <leader>qf  <Plug>(coc-fix-current)
 
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
+"" Map function and class text objects
+"" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+"xmap if <Plug>(coc-funcobj-i)
+"omap if <Plug>(coc-funcobj-i)
+"xmap af <Plug>(coc-funcobj-a)
+"omap af <Plug>(coc-funcobj-a)
+"xmap ic <Plug>(coc-classobj-i)
+"omap ic <Plug>(coc-classobj-i)
+"xmap ac <Plug>(coc-classobj-a)
+"omap ac <Plug>(coc-classobj-a)
 
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of language server.
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
+"" Use CTRL-S for selections ranges.
+"" Requires 'textDocument/selectionRange' support of language server.
+"nmap <silent> <C-s> <Plug>(coc-range-select)
+"xmap <silent> <C-s> <Plug>(coc-range-select)
 
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
+"" Add `:Format` command to format current buffer.
+"command! -nargs=0 Format :call CocAction('format')
 
-" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+"" Add `:Fold` command to fold current buffer.
+"command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
-" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR
-      \ :call CocAction('runCommand', 'editor.action.organizeImport')
+"" Add `:OR` command for organize imports of the current buffer.
+"command! -nargs=0 OR
+"      \ :call CocAction('runCommand', 'editor.action.organizeImport')
 
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-"set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-set statusline=
+"" Add (Neo)Vim's native statusline support.
+"" NOTE: Please see `:h coc-status` for integrations with external plugins that
+"" provide custom statusline: lightline.vim, vim-airline.
+""set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+"set statusline=
 
-" Mappings for CoCList
-" Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+"" Mappings for CoCList
+"" Show all diagnostics.
+"nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+"" Manage extensions.
+"nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+"" Show commands.
+"nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+"" Find symbol of current document.
+"nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+"" Search workspace symbols.
+"nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+"" Do default action for next item.
+"nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+"" Do default action for previous item.
+"nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+"" Resume latest coc list.
+"nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
