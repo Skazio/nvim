@@ -3,7 +3,11 @@
 " ======================= "~/{config}/nvim/init.vim" ========================= "
 " TODO:
 "   -vim status bar (vim-airline)
-"   -emmet
+"   -Créer un plug in pour zoomer et dézomer
+"   -emmet mattn/emmet-vim
+"   -pour afficher les boudary spaces / tab always
+"   -pour supprimer les external boundary spaces sur le :w
+
 
 " ============================================================================ "
 " ================================ "Basique" ================================= "
@@ -31,6 +35,9 @@ let mapleader = " "
 " Affiche une ligne au 81-unième caratère, permet de ne pas dépasser les 80
 " caractères par ligne.
 set colorcolumn=81
+
+" Active le support de la souris.
+set mouse=a
 
 
 " ============================================================================ "
@@ -166,6 +173,17 @@ nnoremap <Leader>gq :diffget //2<Cr>
 " merge.
 nnoremap <Leader>gm :diffget //3<Cr> 
 
+" Cache les résultats de la recherche.
+nnoremap <Leader>n :noh<Cr>
+
+" Permet de naviguer dans les diagnostics.
+" Les diagnostics sont en fait les messages: d'erreur, de warning, et
+" d'information affiché dans la marge lors de l'édition d'un fichier.
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location
+" list.
+nmap <Leader>d <Plug>(coc-diagnostic-next)
+nmap <Leader>D <Plug>(coc-diagnostic-prev)
+
 
 " ============================================================================ "
 " ================================ "Plugin" ================================== "
@@ -202,6 +220,16 @@ Plug 'vim-airline/vim-airline-themes'
 
 " Permet de commenter facilement le code.
 Plug 'tpope/vim-commentary'
+
+" Permet de recherche comme F, mais avec 2 lettres d'affilées.
+Plug 'justinmk/vim-sneak'
+
+" Permet d'ajouter / modifer / supprimer des éléments entourant : { [ ' " (
+" <tag>
+Plug 'tpope/vim-surround'
+
+" Permet d'activer Emmet
+Plug 'mattn/emmet-vim'
 
 " Autocomplétion.
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
@@ -259,6 +287,29 @@ let g:airline_theme='deus'
 " Active les polices powerline, permet d'avoir de beau symboles dans la bar de
 " statut.
 let g:airline_powerline_fonts=1
+
+" Active l'extension pour la tabline.
+let g:airline#extensions#tabline#enabled=1
+
+" Affiche toujours les tabs en haut de vim.
+set showtabline=2
+
+" N'affiche plus les modes de la part de vim '-- INSERT --'.
+set noshowmode
+
+
+" "Sneak"
+highlight link Sneak None
+" Needed if a plugin sets the colorscheme dynamically:
+autocmd User SneakLeave highlight clear Sneak
+
+
+" "Emmet"
+" Change la touche d'invocation d'emmet.
+let g:user_emmet_leader_key='<Leader>e'
+
+" Active Emmet seulement dans le mode normal.
+let g:user_emmet_mode='n'
 
 
 " "CoC"
@@ -369,13 +420,6 @@ inoremap <nowait><expr> <C-f> coc#float#has_scroll() ?
 inoremap <nowait><expr> <C-b> coc#float#has_scroll() ?
       \ "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 
-" Les diagnostics sont en fait les messages: d'erreur, de warning, et
-" d'information affiché dans la marge lors de l'édition d'un fichier.
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location
-" list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " TODO: Compris jusqu'ici.
 

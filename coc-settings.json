@@ -3,5 +3,8 @@
   ,"diagnostic.errorSign": "❌"
   ,"diagnostic.warningSign": "⚠️"
   ,"diagnostic.infoSign": "❓"
+  ,"diagnostic.checkCurrentLine": true
+  ,"coc.preferences.hoverTarget": "float"
+  ,"suggest.enablePreview": true
 }
 
