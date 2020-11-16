@@ -184,6 +184,10 @@ nnoremap <Leader>n :noh<Cr>
 nmap <Leader>d <Plug>(coc-diagnostic-next)
 nmap <Leader>D <Plug>(coc-diagnostic-prev)
 
+" Permet de naviger dans les tab.
+nnoremap <C-Tab> :bn<Cr>
+nnoremap <S-C-Tab> :bp<Cr>
+
 
 " ============================================================================ "
 " ================================ "Plugin" ================================== "
@@ -296,6 +300,10 @@ set showtabline=2
 
 " N'affiche plus les modes de la part de vim '-- INSERT --'.
 set noshowmode
+
+" N'affiche plus le chemin complet du fichier mais seulement son nom dans la
+" tabline en haut.
+let g:airline#extensions#tabline#fnamemod=':t'
 
 
 " "Sneak"
