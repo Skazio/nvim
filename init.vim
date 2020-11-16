@@ -50,7 +50,11 @@ set undolevels=10000
 " Active les undo, même après la fermeture du fichier.
 set undofile
 " Définit l'emplacement des fichiers undo
-set undodir=$XDG_CONFIG_HOME/nvim/undo
+if has("unix")
+  set undodir=~/.config/nvim/undo
+elseif has("win32")
+  set undodir=~/AppData/Local/nvim/undo
+endif
 
 " Avant chaque écriture sur le disque, créer un fichier de backup de l'ancien
 " fichier. En cas de problème, le fichier original peut être trouvé dans le
