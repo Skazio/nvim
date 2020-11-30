@@ -5,7 +5,8 @@
 "   -vim status bar (vim-airline)
 "   -Créer un plug in pour zoomer et dézomer
 "   -emmet mattn/emmet-vim
-"   -pour afficher les boudary spaces / tab always
+"   -pour afficher les boudary spaces / tab always OUI, mais regarder pour les
+"   doubles espaces entre les mots
 "   -pour supprimer les external boundary spaces sur le :w
 
 
@@ -91,9 +92,18 @@ set textwidth=80
 set nowrap
 
 " Permet à la touche "<BS>" de supprimet les indentations, les fins de ligns, et
-" les débuts de ligne
+" les débuts de ligne.
 set backspace=indent,eol,start
 
+" Permet de définir quels éléments doivent être explicitement affichés.
+" tab: les tabulations
+" extends: quand la fenêtre n'affiche pas tous les caractères à droite
+" precedes: pareil que extends mais à gauche
+" nbsp: les espaces insécables
+" trail: les espaces en fin de ligne
+set listchars=tab:→\ ,extends:›,precedes:‹,nbsp:·,trail:·
+" Active l'affichage des éléments explicitement affichés.
+set list
 
 " ============================================================================ "
 " ================================ "Message" ================================= "
@@ -191,6 +201,19 @@ nmap <Leader>D <Plug>(coc-diagnostic-prev)
 " Permet de naviger dans les tab.
 nnoremap <C-Tab> :bn<Cr>
 nnoremap <S-C-Tab> :bp<Cr>
+
+" Peut-être étudier le cas du mode insertion
+" Permet de changer l'indentation
+nnoremap <Tab> >>
+nnoremap <S-Tab> <<
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+
+" Permet de déplacer des éléments surlignés ("V", "<C-V>").
+vnoremap H <gv
+vnoremap J xp`[V`]
+vnoremap K xkP`[V`]
+vnoremap L >gv
 
 
 " ============================================================================ "
@@ -363,19 +386,25 @@ else
   set signcolumn=yes
 endif
 
+" Je n'aime pas le fait que <tab> fasse apparaitre le menu d'auto completion, il
+" y a déjà <c-space> pour ça.
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"  inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" Permet de naviguer dans les propositions de CoC lorsqu'elles sont disponibles.
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "<tab>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "<s-tab>"
+
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
 
 " Use <c-space> to trigger completion.
 if has('nvim')
