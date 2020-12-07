@@ -216,6 +216,11 @@ vnoremap K xkP`[V`]
 vnoremap L >gv
 
 
+" Permet d'être plus logique dans les mapping and de copier jusqu'à la fin de la
+" ligne
+nnoremap Y y$
+
+
 " ============================================================================ "
 " ================================ "Plugin" ================================== "
 " ============================ "Initialisation" ============================== "
