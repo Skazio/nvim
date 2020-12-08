@@ -215,10 +215,12 @@ vnoremap J xp`[V`]
 vnoremap K xkP`[V`]
 vnoremap L >gv
 
-
 " Permet d'être plus logique dans les mapping and de copier jusqu'à la fin de la
 " ligne
 nnoremap Y y$
+
+" Permet de fermer le buffer sans ferme la window qui le regarde
+command! Bc bp | sp | bn | bd
 
 
 " ============================================================================ "
