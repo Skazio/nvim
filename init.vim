@@ -219,6 +219,10 @@ vnoremap L >gv
 " ligne
 nnoremap Y y$
 
+" Permet de sauvegarder à l'ancienne.
+nnoremap <C-S> :w<Cr>
+inoremap <C-S> <C-O>:w<Cr>
+
 " Permet de fermer le buffer sans ferme la window qui le regarde
 command! Bc bp | sp | bn | bd
 
@@ -338,6 +342,28 @@ set noshowmode
 " N'affiche plus le chemin complet du fichier mais seulement son nom dans la
 " tabline en haut.
 let g:airline#extensions#tabline#fnamemod=':t'
+
+" Réduit le volet de gauche sur les fenêtres inactives.
+let g:airline_inactive_collaspse=1
+
+" Désactive la section du centre.
+let g:airline_section_c = ''
+
+" Désactive la section des erreurs.
+let g:airline_section_error = ''
+
+" Désactive la section des warnings.
+let g:airline_section_warning = ''
+
+" Définit la section de la position courrante dans le fichier.
+" %c colonne
+" %f file path
+" %l line
+" %L max line
+" %t file name
+" %v colonne (mais si ligne vide = 0)
+" %y type de fichier
+let g:airline_section_z = 'ln %l, cl %c'
 
 
 " "Sneak"
