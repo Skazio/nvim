@@ -326,9 +326,16 @@ let g:ctrlp_line_prefix='> '
 " "Airline"
 " Change le theme air-line.
 let g:airline_theme='deus' 
+
 " Active les polices powerline, permet d'avoir de beau symboles dans la bar de
 " statut.
 let g:airline_powerline_fonts=1
+
+" Désactive les séparateurs de gauche.
+let g:airline_left_sep=''
+
+" Désactive les séparateurs de droite.
+let g:airline_right_sep=''
 
 " Active l'extension pour la tabline.
 let g:airline#extensions#tabline#enabled=1
@@ -349,6 +356,22 @@ let g:airline_inactive_collaspse=1
 " Désactive la section du centre.
 let g:airline_section_c = ''
 
+" Désactive la seciotn du type du fichier.
+let g:airline_section_x = ''
+
+" Réactive la section du centre sur les fenêtres inactives (pour afficher le nom
+" du fichier).
+function! AddFileNameInactiveWindow(...)
+  let g:airline_section_c = '%t'
+endfunction
+call airline#add_inactive_statusline_func('AddFileNameInactiveWindow')
+
+" Supprime la section du centre sur les fenêtres actives.
+function! RemoveFileNameActiveWindow(...)
+  let g:airline_section_c = ''
+endfunction
+call airline#add_statusline_func('RemoveFileNameActiveWindow')
+
 " Désactive la section des erreurs.
 let g:airline_section_error = ''
 
@@ -364,6 +387,7 @@ let g:airline_section_warning = ''
 " %v colonne (mais si ligne vide = 0)
 " %y type de fichier
 let g:airline_section_z = 'ln %l, cl %c'
+
 
 
 " "Sneak"
