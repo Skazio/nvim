@@ -228,6 +228,29 @@ command! Bc bp | sp | bn | bd
 
 
 " ============================================================================ "
+" ================================= "Macro" ================================== "
+" ============================================================================ "
+" Macro pour les comptes rendus de code
+" Header de prÃ©sentation
+let @a = 'i<h€ü1></h€ü1>F>l'
+let @z = 'i<h€ü2></h€ü2>F>l'
+let @e = 'i<h€ü3></h€ü3>F>l'
+let @r = 'i<h€ü4></h€ü4>F>l'
+let @t = 'i<h€ü5></h€ü5>F>l'
+
+" Section de code
+let @c = 'a<code></code>F>l'
+
+" Entourer une variable
+let @v = 'wbi<v>€ýaea</v>€ýa'
+
+" Entourer une chaine de caractÃ¨res
+let @s = 'F"i<str>f"f"a</str>l'
+" Trouver une lettre pour la version avec les apostrophes
+" let @s = 'F''i<str>f''f''a</str>l'
+
+
+" ============================================================================ "
 " ================================ "Plugin" ================================== "
 " ============================ "Initialisation" ============================== "
 "call plug#begin('~/.vim/plugged')
