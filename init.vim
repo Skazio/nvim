@@ -17,6 +17,7 @@
 
 " Utilise le bon encodage.
 set encoding=UTF-8
+set fileencoding=UTF-8
 
 " Permet d'activer la coloration syntaxique.
 syntax on
@@ -159,6 +160,9 @@ set incsearch
 " ============================================================================ "
 " ================================= "Remap" ================================== "
 " ============================================================================ "
+" DÃ©sactive tous les remap prÃ©cÃ©dent de "<C-C>"
+iunmap <C-C>
+
 " Permet d'avoir le mÃªme comportement avec "<C-c>" qu'avec "<Escap>".
 inoremap <C-C> <Esc>
 
@@ -232,22 +236,20 @@ command! Bc bp | sp | bn | bd
 " ============================================================================ "
 " Macro pour les comptes rendus de code
 " Header de prÃ©sentation
-let @a = 'i<h€ü1></h€ü1>F>l'
-let @z = 'i<h€ü2></h€ü2>F>l'
-let @e = 'i<h€ü3></h€ü3>F>l'
-let @r = 'i<h€ü4></h€ü4>F>l'
-let @t = 'i<h€ü5></h€ü5>F>l'
+let @a = 'i<h1></h1>'
+let @z = 'i<h2></h2>'
+let @e = 'i<h3></h3>'
+let @r = 'i<h4></h4>'
+let @t = 'i<h5></h5>'
 
 " Section de code
 let @c = 'a<code></code>F>l'
 
 " Entourer une variable
-let @v = 'wbi<v>€ýaea</v>€ýa'
+let @v = 'wbi<v>ea</v>'
 
-" Entourer une chaine de caractÃ¨res
-let @s = 'F"i<str>f"f"a</str>l'
-" Trouver une lettre pour la version avec les apostrophes
-" let @s = 'F''i<str>f''f''a</str>l'
+" Entourer une chaÃ®ne de caractÃ¨res
+let @s = 'F"i<str>f"f"a</str>'
 
 
 " ============================================================================ "
@@ -390,10 +392,12 @@ endfunction
 call airline#add_inactive_statusline_func('AddFileNameInactiveWindow')
 
 " Supprime la section du centre sur les fenÃªtres actives.
-function! RemoveFileNameActiveWindow(...)
-  let g:airline_section_c = ''
-endfunction
-call airline#add_statusline_func('RemoveFileNameActiveWindow')
+if !exists("*RemoveFileNameActiveWindow")
+  function! RemoveFileNameActiveWindow(...)
+    let g:airline_section_c = ''
+  endfunction
+  call airline#add_statusline_func('RemoveFileNameActiveWindow')
+endif
 
 " DÃ©sactive la section des erreurs.
 let g:airline_section_error = ''
