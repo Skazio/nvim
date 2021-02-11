@@ -160,9 +160,6 @@ set incsearch
 " ============================================================================ "
 " ================================= "Remap" ================================== "
 " ============================================================================ "
-" Désactive tous les remap précédent de "<C-C>"
-iunmap <C-C>
-
 " Permet d'avoir le même comportement avec "<C-c>" qu'avec "<Escap>".
 inoremap <C-C> <Esc>
 
@@ -469,6 +466,9 @@ if has("patch-8.1.1564")
 else
   set signcolumn=yes
 endif
+
+" Désactive le mapping de "<C-c>" pour les fichiers SQL
+let g:ftplugin_sql_omni_key = '<C-j>'
 
 " Je n'aime pas le fait que <tab> fasse apparaitre le menu d'auto completion, il
 " y a déjà <c-space> pour ça.
